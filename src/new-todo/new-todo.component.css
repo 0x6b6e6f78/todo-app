@@ -1,0 +1,19 @@
+input {
+  height: 25px;
+  font: 18px Arial;
+}
+
+select {
+  height: 25px;
+  font: 18px Arial;
+}
+
+option {
+  height: 25px;
+  font: 18px Arial;
+}
+
+button {
+  height: 25px;
+  font: 18px Arial;
+}

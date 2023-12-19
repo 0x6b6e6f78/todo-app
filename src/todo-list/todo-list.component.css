@@ -1,0 +1,47 @@
+.mat-icon {
+  color: #888888;
+  transition: 0.5s;
+  margin: 5px;
+}
+.mat-icon:nth-child(odd) {
+  transition: 0.5s;
+  color: #bbbbbb;
+}
+
+.thead {
+  user-select: none;
+}
+
+.head-row {
+  background-color: #222222;
+  color: darkgray;
+}
+
+.container {
+  width: 1400px;
+}
+
+
+.todo-table {
+  width: 1400px;
+}
+
+.rows {
+  background-color: #222222;
+  transition: 0.5s;
+  height: 40px;
+  color: #888888;
+  border: #333333 1px solid;
+  font: 18px Arial bold;
+}
+
+.rows:nth-child(odd) {
+  background-color: #333333;
+}
+
+.rows:hover {
+  background-color: #444444;
+  transition: 0.5s;
+  color: #bbbbbb;
+  border: #444444 1px solid;
+}

@@ -1,0 +1,77 @@
+<div>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+  <div class="">
+    <table class="todo-table">
+      <thead>
+        <tr class="head-row" style="user-select: none">
+          <th style="width: 05%;" class="status-col" scope="col">&nbsp;</th>
+          <th style="width: 05%;" class="priority-col">&nbsp;</th>
+          <th style="width: 10%;" class="id-col">ID</th>
+          <th style="width: 45%;" class="name-col">Bezeichnung</th>
+          <th style="width: 10%;" class="until-col">Fällig bis</th>
+          <th style="width: 15%;" class="category-col">Kategorie</th>
+          <th style="width: 05%;" class="delete-button-col">&nbsp;</th>
+          <th style="width: 05%;" class="clone-button-col">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let todo of dataTableService.todos">
+          <tr class="rows">
+            <td style="user-select: none">
+              <ng-container *ngIf="todo.status != Status.DONE">
+                <button style="border: 0px transparent; background: transparent" (click)="nextStatus(todo)"><mat-icon>{{todo.status.button}}</mat-icon></button>
+              </ng-container>
+              <ng-container *ngIf="todo.status == Status.DONE">
+                <mat-icon style="margin: 5px 10px 5px 10px">{{todo.status.button}}</mat-icon>
+              </ng-container>
+            </td>
+
+            <td style="user-select: none"><button style="border: 0px transparent; background: transparent"><mat-icon>{{todo.priority.button}}</mat-icon></button></td>
+            <td style="user-select: none">{{todo.id}}</td>
+
+            <td>
+              <ng-container *ngIf="!isEditing(todo, Cell.NAME); else elseBlock1">
+                <div style="height: 40px" (dblclick)="doEdit(todo, Cell.NAME);"><div style="padding-top: 8px">{{todo.name}}</div></div>
+              </ng-container>
+              <ng-template #elseBlock1>
+                <input style="background: transparent; margin-top: 10px" [ngModel]="editName" (keyup.enter)="save(todo);">
+              </ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="!isEditing(todo, Cell.DATE); else elseBlock2">
+                <div style="height: 40px" (dblclick)="doEdit(todo, Cell.DATE);"><div style="padding-top: 8px">{{todo.getUntilDate()}}</div></div>
+              </ng-container>
+              <ng-template #elseBlock2>
+                <input [ngModel]="editDate" type="date" (keyup.enter)="save(todo);">
+              </ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="!isEditing(todo, Cell.CATEGORY); else elseBlock3">
+                <div style="height: 40px" (dblclick)="doEdit(todo, Cell.CATEGORY);"><div style="padding-top: 8px">{{todo.category.name}}</div></div>
+              </ng-container>
+              <ng-template #elseBlock3>
+                <select [ngModel]="editCategory" (keyup.enter)="save(todo);">
+                  <ng-container *ngFor="let category of dataTableService.categories">
+                    <option value="{{category}}">{{category.name}}</option>
+                  </ng-container>
+                </select>
+              </ng-template>
+            </td>
+
+            <td *ngIf="!isEditing(todo, Cell.DATE); else elseBlock2">
+            </td>
+
+            <td *ngIf="!isEditing(todo, Cell.CATEGORY); else elseBlock3">
+              <ng-template #elseBlock3>
+              </ng-template>
+            </td>
+
+            <td><button (click)="dataTableService.delete(todo)" style="user-select: none; border: 0px transparent; background: transparent"><mat-icon>delete</mat-icon></button></td>
+            <td><button (click)="dataTableService.clone(todo)" style="user-select: none; border: 0px transparent; background: transparent"><mat-icon>control_point_duplicate</mat-icon></button></td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
