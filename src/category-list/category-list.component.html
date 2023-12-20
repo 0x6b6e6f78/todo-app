@@ -1,6 +1,6 @@
 <div style="width: 300px; font-size: 18px; float: left; margin-top: 30px">
-  <div style="color: #888888; direction: rtl">
-    <div style="margin: 8px" (click)="dataTableService.selected = undefined">
+  <div style="margin: 8px; color: #888888; direction: rtl">
+    <div style="" (click)="dataTableService.selected = undefined">
       <b *ngIf="dataTableService.selected === undefined; else elseBlock">
         Alle
       </b>
@@ -8,8 +8,8 @@
         Alle
       </ng-template>
     </div>
-    <div *ngFor="let category of dataTableService.categories">
-      <div name="cate" style="margin: 8px" (click)="dataTableService.selected = category">
+    <div style="margin-top: 8px" *ngFor="let category of dataTableService.categories">
+      <div name="cate" (click)="dataTableService.selected = category">
         <b *ngIf="dataTableService.selected == category; else elseBlock">
           {{category.name}}
         </b>
@@ -17,6 +17,9 @@
           {{category.name}}
         </ng-template>
       </div>
+    </div>
+    <div style="margin-top: 8px">
+      <input style="background-color: transparent; color: #888888" [(ngModel)]="dataTableService.catName" (keyup.enter)="dataTableService.addCategory()">
     </div>
   </div>
 </div>

@@ -3,10 +3,10 @@
   <div style="width: 50%; height: 40px; align-items: center; position: fixed; margin-left: 25%">
     <app-message-box style="width: 500px; height: 40px"></app-message-box>
   </div>
-  <div style="width: 300px; position: fixed" *ngIf="componentService.page == Page.LIST">
+  <div style="width: 300px" *ngIf="componentService.page == Page.LIST">
     <app-category-list style="float:left"/>
   </div>
-  <div style="margin-left: 320px; margin-top: 20px">
+  <div style="margin-left: 20px; margin-top: 20px">
     <ng-container [ngSwitch]="componentService.page">
       <app-todo-list *ngSwitchCase="Page.LIST"></app-todo-list>
       <app-new-todo *ngSwitchCase="Page.NEW"></app-new-todo>

@@ -46,17 +46,17 @@
             </td>
 
             <td>
-              <input style="width: 120px; border: transparent; background-color: transparent; color: #888888" [(ngModel)]="todo.until" type="date">
+              <input style="width: 120px; border: transparent; background-color: transparent; color: #888888; user-select: none" [(ngModel)]="todo.until" type="date">
             </td>
 
             <td>
-              <select [(ngModel)]="todo.category" style="width: 200px; background-color: transparent; border: none; box-shadow: none; color: #888888" (ngModelChange)="dataTableService.save()">
+              <select [(ngModel)]="todo.category" style="user-select: none; width: 200px; background-color: transparent; border: none; box-shadow: none; color: #888888" (ngModelChange)="dataTableService.save()">
                 <option *ngFor="let category of dataTableService.categories" style="background-color: #222222; border: none" [ngValue]="category">{{category.name}}</option>
               </select>
             </td>
 
             <ng-container *ngIf="dataTableService.showExtraButtons.enabled">
-              <td><button (click)="dataTableService.delete(todo)" style="user-select: none; border: 0px transparent; background: transparent"><mat-icon>delete</mat-icon></button></td>
+              <td><button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top" (click)="dataTableService.delete(todo)" style="user-select: none; border: 0px transparent; background: transparent"><mat-icon>delete</mat-icon></button></td>
               <td><button (click)="dataTableService.clone(todo)" style="user-select: none; border: 0px transparent; background: transparent"><mat-icon>control_point_duplicate</mat-icon></button></td>
             </ng-container>
           </tr>

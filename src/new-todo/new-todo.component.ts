@@ -20,10 +20,10 @@ import {FormsModule} from "@angular/forms";
   styleUrl: './new-todo.component.css'
 })
 export class NewTodoComponent {
-  name: string = "";
+  name = "";
   until: Date = new Date();
-  category: Category | undefined = this.dataTableService.categories[0];
-  priority: { button: string; tooltip: string; id: number } = Priority.UNASSIGNED;
+  category = this.dataTableService.categories[0];
+  priority = Priority.UNASSIGNED;
 
   constructor(public dataTableService: DataTableService) {
   }
@@ -34,6 +34,7 @@ export class NewTodoComponent {
       return;
     }
     let todo = new Todo(this.dataTableService.findNextId(), this.name, this.until, this.category!);
+    todo.priority = this.priority;
     this.dataTableService.add(todo);
   }
 

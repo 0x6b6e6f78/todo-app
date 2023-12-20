@@ -1,34 +1,25 @@
-<div style="color: #888888">
+<div style="color: #888888; user-select: none">
   <div>Name:</div>
-  <input name="name" [(ngModel)]="this.name" style="width: 500px"/>
+  <input name="name" [(ngModel)]="this.name" style="width: 500px; background-color: transparent; color: #888888"/>
   <br>
   <br>
   <div style="width: 500px;">
-    <div style="width: 250px; float: left">Frist:</div>
-    <div>Priorität:</div>
+    <div>Frist:</div>
   </div>
   <div style="width: 500px;">
-    <input name="until" [(ngModel)]="until" type="date" style="width: 240px; margin-right: 10px; float: left"/>
-    <div style="width: 240px; float:left;">
-      <input id="unassigned" type="radio" checked="{{defPrio()}}" name="priority" (click)="priority = Priority.UNASSIGNED" value="{{Priority.UNASSIGNED}}">
-      <mat-icon style="margin-right: 50px"><label for="unassigned">{{Priority.UNASSIGNED.button}}</label></mat-icon>
-      <input id="low" type="radio" name="priority" (click)="priority = Priority.LOW" value="{{Priority.LOW}}">
-      <mat-icon style="margin-right: 50px"><label for="low">{{Priority.LOW.button}}</label></mat-icon>
-      <input id="high" type="radio" name="priority" (click)="priority = Priority.HIGH" value="{{Priority.HIGH}}">
-      <mat-icon style="margin-right: 5px"><label for="high">{{Priority.HIGH.button}}</label></mat-icon>
-    </div>
+    <input name="until" [(ngModel)]="until" type="date" style="width: 500px; float: left; background-color: transparent; color: #888888"/>
   </div>
   <br>
   <br>
   <div>Kategorie:</div>
-  <select name="categories" style="width: 500px;" [(ngModel)]="category">
+  <select name="categories" style="width: 500px; background-color: transparent; color: #888888" [(ngModel)]="category">
     <option *ngFor="let categories of dataTableService.categories" [ngValue]="categories">
       {{categories.name}}
     </option>
   </select>
   <br>
   <br>
-  <button style="width: 500px" (click)="create()">
+  <button style="width: 500px; background-color: transparent; color: #888888" (click)="create()">
     Hinzufügen
   </button>
 </div>
