@@ -42,11 +42,11 @@
             <td style="user-select: none">{{todo.id}}</td>
 
             <td>
-              <input style="background: transparent; border: transparent; width: 610px; color: #888888" [(ngModel)]="todo.name" (change)="dataTableService.save()">
+              <input style="background: transparent; border: transparent; width: 610px; color: #888888" [(ngModel)]="todo.name" (ngModelChange)="dataTableService.save()">
             </td>
 
             <td>
-              <input style="width: 120px; border: transparent; background-color: transparent; color: #888888; user-select: none" [(ngModel)]="todo.until" type="date">
+              <input style="width: 120px; border: transparent; background-color: transparent; color: #888888; user-select: none" (ngModelChange)="dataTableService.save()" (keyup.enter)="dataTableService.save()" [(ngModel)]="todo.until" type="date">
             </td>
 
             <td>
