@@ -8,11 +8,12 @@ import {SettingPageComponent} from "../setting-page/setting-page.component";
 import {ComponentService} from "../services/ComponentService";
 import {CategoryListComponent} from "../category-list/category-list.component";
 import {NewTodoComponent} from "../new-todo/new-todo.component";
+import {MessageBoxComponent} from "../message-box/message-box.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MatIconModule, NavBarComponent, TodoListComponent, SettingPageComponent, CategoryListComponent, NewTodoComponent],
+  imports: [CommonModule, RouterOutlet, MatIconModule, NavBarComponent, TodoListComponent, SettingPageComponent, CategoryListComponent, NewTodoComponent, MessageBoxComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

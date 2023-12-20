@@ -1,5 +1,8 @@
 <div>
   <app-nav-bar></app-nav-bar>
+  <div style="width: 50%; height: 40px; align-items: center; position: fixed; margin-left: 25%">
+    <app-message-box style="width: 500px; height: 40px"></app-message-box>
+  </div>
   <div style="width: 300px; position: fixed" *ngIf="componentService.page == Page.LIST">
     <app-category-list style="float:left"/>
   </div>

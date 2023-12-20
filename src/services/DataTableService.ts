@@ -1,4 +1,4 @@
-import {Category, Priority, Status, Todo} from "../obejcts/todo";
+import {Category, Priority, Status, Todo} from "../objects/todo";
 import {Injectable} from "@angular/core";
 
 @Injectable({ providedIn: "root" })
@@ -14,6 +14,7 @@ export class DataTableService {
 
   public selected: Category | undefined;
   public searchText: string = "";
+  public _messageBoxMessage: string | undefined;
 
   constructor() {
     //localStorage.setItem("todos", JSON.stringify(this.todo_defaults));
@@ -47,7 +48,6 @@ export class DataTableService {
         }
         this.todos.push(todo);
       });
-      this.sort();
     }
     let setting_showExtraButtons = localStorage.getItem(this.showExtraButtons.key);
     if (setting_showExtraButtons !== null) {
@@ -57,6 +57,19 @@ export class DataTableService {
     if (setting_sortList !== null) {
       this.sortList.enabled = JSON.parse(setting_sortList!);
     }
+  }
+
+  public set messageBoxMessage(message: string) {
+    this._messageBoxMessage = message;
+    new Promise( resolve => setTimeout(resolve, 5000) ).then(d => {
+      if (this._messageBoxMessage == message) {
+        this._messageBoxMessage = undefined;
+      }
+    });
+  }
+
+  public get messageBoxMessage(): string | undefined {
+    return this._messageBoxMessage;
   }
 
   public saveSetting(obj: {key: string, description: string, enabled: boolean}) {
@@ -74,14 +87,14 @@ export class DataTableService {
 
   public delete(todo: Todo) {
     this.todos = this.todos.filter(e => e != todo);
-    this.sort();
     this.save();
+    this.messageBoxMessage = "Todo gelöscht";
   }
 
   public add(todo: Todo) {
     this.todos.push(todo);
-    this.sort();
     this.save();
+    this.messageBoxMessage = "Todo hinzugefügt";
   }
 
   public save() {
@@ -91,26 +104,22 @@ export class DataTableService {
   public clone(todo: Todo) {
     let newTodo: Todo = new Todo(this.findNextId(), todo.name, todo.until, todo.category);
     this.add(newTodo);
-  }
-
-  public sort() {
-    if (!this.sortList) {
-      return;
-    }
-    this.todos = this.todos.sort((a, b) => {
-      if (a.status.id != b.status.id) {
-        return b.status.id - a.status.id;
-      }
-      if (a.priority.id != b.priority.id) {
-        return b.priority.id - a.priority.id;
-      }
-      return a.id - b.id;
-    });
+    this.messageBoxMessage = "Todo geklont"
   }
 
   public todoList() {
-    this.sort();
     let a = this.todos;
+    if (this.sortList) {
+      a = a.sort((a, b) => {
+        if (a.status.id != b.status.id) {
+          return b.status.id - a.status.id;
+        }
+        if (a.priority.id != b.priority.id) {
+          return b.priority.id - a.priority.id;
+        }
+        return a.id - b.id;
+      });
+    }
     if (this.selected !== undefined) {
       a = a.filter(todo => todo.category == this.selected);
     }

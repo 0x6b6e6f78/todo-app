@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {DataTableService} from "../services/DataTableService";
 import {NgForOf, NgIf} from "@angular/common";
-import {Category} from "../obejcts/todo";
+import {Category} from "../objects/todo";
 
 @Component({
   selector: 'app-category-list',

@@ -8,14 +8,6 @@ export class Todo {
   constructor(public id: number, public name: string, public until: Date, public category: Category) {
   }
 
-  public getUntilDate(): string {
-    return formatDate(this.until, 'dd.MM.yyyy', 'en-US');
-  }
-
-  public tooltipPriority(): string {
-    return this.status == Status.NEW ? "Neu" : (this.status == Status.DONE ? "Fertig" : "In Bearbeitung");
-  }
-
   nextStatus() {
     if (this.status == Status.IN_PROGRESS) {
       this.status = Status.DONE;
@@ -60,10 +52,6 @@ export const Priority = {
     button: "priority_high",
     tooltip: "Hohe Priorität"
   }
-}
-
-export enum Cell {
-  NAME, DATE, CATEGORY
 }
 
 export class Category {

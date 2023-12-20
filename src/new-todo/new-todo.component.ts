@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {DatePipe, NgForOf} from "@angular/common";
 import {DataTableService} from "../services/DataTableService";
-import {Category, Priority, Todo} from "../obejcts/todo";
+import {Category, Priority, Todo} from "../objects/todo";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {FormsModule} from "@angular/forms";
@@ -29,9 +29,12 @@ export class NewTodoComponent {
   }
 
   public create() {
+    if (this.name.length == 0) {
+      this.dataTableService.messageBoxMessage = "Der Name darf nicht leer sein";
+      return;
+    }
     let todo = new Todo(this.dataTableService.findNextId(), this.name, this.until, this.category!);
     this.dataTableService.add(todo);
-    console.log(this.dataTableService.todos);
   }
 
   public defPrio() {
