@@ -1,6 +1,6 @@
 <div>
   <app-nav-bar></app-nav-bar>
-  <div style="width: 300px; position: fixed">
+  <div style="width: 300px; position: fixed" *ngIf="componentService.page == Page.LIST">
     <app-category-list style="float:left"/>
   </div>
   <div style="margin-left: 320px; margin-top: 20px">

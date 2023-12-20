@@ -23,7 +23,7 @@ export class NewTodoComponent {
   name: string = "";
   until: Date = new Date();
   category: Category | undefined = this.dataTableService.categories[0];
-  priority: {button: string, tooltip: string} = Priority.UNASSIGNED;
+  priority: { button: string; tooltip: string; id: number } = Priority.UNASSIGNED;
 
   constructor(public dataTableService: DataTableService) {
   }

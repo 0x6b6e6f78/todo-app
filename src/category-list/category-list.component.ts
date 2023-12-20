@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import {DataTableService} from "../services/DataTableService";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
+import {Category} from "../obejcts/todo";
 
 @Component({
   selector: 'app-category-list',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './category-list.component.html',
   styleUrl: './category-list.component.css'

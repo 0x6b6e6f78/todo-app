@@ -3,7 +3,7 @@
     <div class="brand-logo">TodoApp</div>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav" style="height: 32px">
         <li class="nav-item">
           <a class="nav-link" style="user-select: none" (click)="componentService.page = Page.LIST">Liste</a>
         </li>
@@ -14,6 +14,12 @@
           <a class="nav-link" style="user-select: none" (click)="componentService.page = Page.SETTINGS">Einstellungen</a>
         </li>
       </ul>
+    </div>
+    <div style="float: right">
+      <div>
+        <input [(ngModel)]="dataTableService.searchText" style="width: 300px; background-color: transparent">
+        <mat-icon style="padding-top: 10px; height: 30px">search</mat-icon>
+      </div>
     </div>
   </div>
 </nav>

@@ -28,14 +28,17 @@ export class Todo {
 
 export const Status = {
   NEW: {
+    id: 1,
     button: "add",
     tooltip: "Neu"
   },
   IN_PROGRESS: {
+    id: 2,
     button: "pending",
     tooltip: "In Bearbeitung"
   },
   DONE: {
+    id: 0,
     button: "done",
     tooltip: "Fertig"
   }
@@ -43,14 +46,17 @@ export const Status = {
 
 export const Priority = {
   UNASSIGNED: {
+    id: 0,
     button: "dangerous",
     tooltip: "Keine Priorität"
   },
   LOW: {
+    id: 1,
     button: "low_priority",
     tooltip: "Niedrige Priorität"
   },
   HIGH: {
+    id: 2,
     button: "priority_high",
     tooltip: "Hohe Priorität"
   }

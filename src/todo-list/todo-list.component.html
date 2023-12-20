@@ -11,12 +11,14 @@
           <th style="width: 45%;" class="name-col">Bezeichnung</th>
           <th style="width: 10%;" class="until-col">Fällig bis</th>
           <th style="width: 15%;" class="category-col">Kategorie</th>
-          <th style="width: 05%;" class="delete-button-col">&nbsp;</th>
-          <th style="width: 05%;" class="clone-button-col">&nbsp;</th>
+          <ng-container *ngIf="dataTableService.showExtraButtons.enabled">
+            <th style="width: 05%;" class="delete-button-col">&nbsp;</th>
+            <th style="width: 05%;" class="clone-button-col">&nbsp;</th>
+          </ng-container>
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let todo of dataTableService.todos">
+        <ng-container *ngFor="let todo of dataTableService.todoList()">
           <tr class="rows">
             <td style="user-select: none">
               <ng-container *ngIf="todo.status != Status.DONE">
@@ -27,48 +29,36 @@
               </ng-container>
             </td>
 
-            <td style="user-select: none"><button style="border: 0px transparent; background: transparent"><mat-icon>{{todo.priority.button}}</mat-icon></button></td>
+            <td style="user-select: none">
+              <mat-icon style="background-color: transparent; border: none; width: 50px; margin-left: -10px">
+                <select style="background-color: transparent; border: none; box-shadow: none; color: #888888" [(ngModel)]="todo.priority" (ngModelChange)="dataTableService.save()">
+                  <option [ngValue]="Priority.UNASSIGNED" style="background-color: #222222; border: none">{{Priority.UNASSIGNED.button}}</option>
+                  <option [ngValue]="Priority.LOW" style="background-color: #222222; border: none">{{Priority.LOW.button}}</option>
+                  <option [ngValue]="Priority.HIGH" style="background-color: #222222; border: none">{{Priority.HIGH.button}}</option>
+                </select>
+              </mat-icon>
+            </td>
+
             <td style="user-select: none">{{todo.id}}</td>
 
             <td>
-              <ng-container *ngIf="!isEditing(todo, Cell.NAME); else elseBlock1">
-                <div style="height: 40px" (dblclick)="doEdit(todo, Cell.NAME);"><div style="padding-top: 8px">{{todo.name}}</div></div>
-              </ng-container>
-              <ng-template #elseBlock1>
-                <input style="background: transparent; margin-top: 10px" [ngModel]="editName" (keyup.enter)="save(todo);">
-              </ng-template>
+              <input style="background: transparent; border: transparent; width: 610px; color: #888888" [(ngModel)]="todo.name" (change)="dataTableService.save()">
             </td>
+
             <td>
-              <ng-container *ngIf="!isEditing(todo, Cell.DATE); else elseBlock2">
-                <div style="height: 40px" (dblclick)="doEdit(todo, Cell.DATE);"><div style="padding-top: 8px">{{todo.getUntilDate()}}</div></div>
-              </ng-container>
-              <ng-template #elseBlock2>
-                <input [ngModel]="editDate" type="date" (keyup.enter)="save(todo);">
-              </ng-template>
+              <input style="width: 120px; border: transparent; background-color: transparent; color: #888888" [ngModel]="todo.until" type="date">
             </td>
+
             <td>
-              <ng-container *ngIf="!isEditing(todo, Cell.CATEGORY); else elseBlock3">
-                <div style="height: 40px" (dblclick)="doEdit(todo, Cell.CATEGORY);"><div style="padding-top: 8px">{{todo.category.name}}</div></div>
-              </ng-container>
-              <ng-template #elseBlock3>
-                <select [ngModel]="editCategory" (keyup.enter)="save(todo);">
-                  <ng-container *ngFor="let category of dataTableService.categories">
-                    <option value="{{category}}">{{category.name}}</option>
-                  </ng-container>
-                </select>
-              </ng-template>
+              <select [(ngModel)]="todo.category" style="width: 200px; background-color: transparent; border: none; box-shadow: none; color: #888888" (ngModelChange)="dataTableService.save()">
+                <option *ngFor="let category of dataTableService.categories" style="background-color: #222222; border: none" [ngValue]="category">{{category.name}}</option>
+              </select>
             </td>
 
-            <td *ngIf="!isEditing(todo, Cell.DATE); else elseBlock2">
-            </td>
-
-            <td *ngIf="!isEditing(todo, Cell.CATEGORY); else elseBlock3">
-              <ng-template #elseBlock3>
-              </ng-template>
-            </td>
-
-            <td><button (click)="dataTableService.delete(todo)" style="user-select: none; border: 0px transparent; background: transparent"><mat-icon>delete</mat-icon></button></td>
-            <td><button (click)="dataTableService.clone(todo)" style="user-select: none; border: 0px transparent; background: transparent"><mat-icon>control_point_duplicate</mat-icon></button></td>
+            <ng-container *ngIf="dataTableService.showExtraButtons.enabled">
+              <td><button (click)="dataTableService.delete(todo)" style="user-select: none; border: 0px transparent; background: transparent"><mat-icon>delete</mat-icon></button></td>
+              <td><button (click)="dataTableService.clone(todo)" style="user-select: none; border: 0px transparent; background: transparent"><mat-icon>control_point_duplicate</mat-icon></button></td>
+            </ng-container>
           </tr>
         </ng-container>
       </tbody>
