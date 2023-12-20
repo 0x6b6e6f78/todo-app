@@ -4,7 +4,7 @@ import {Injectable} from "@angular/core";
 @Injectable({ providedIn: "root" })
 export class DataTableService {
   public category_defaults: Category[] = [new Category('Hausarbeit'), new Category('Verein')];
-  public categories: Category[] = [new Category('Hausarbeit')];
+  public categories: Category[] = [new Category('')];
   public todo_defaults: Todo[] = [new Todo(1, 'Garten essen', new Date('01.01.2020'), this.categories[0]),
     new Todo(2, 'Rasen mehlen', new Date('01.01.2020'), this.categories[0]),
     new Todo(3, 'Rasen mähen', new Date('01.01.2020'), this.categories[1])];
@@ -35,7 +35,7 @@ export class DataTableService {
     if (localTodos !== null) {
       let list: Todo[] = JSON.parse(localTodos!);
       list.forEach(t => {
-        let c: Category | undefined = this.categories.find(e => e.name == t.category.name);
+        let c: Category | undefined = this.categories.find(e => e.name == t.category?.name);
         if (c === undefined) {
           return;
         }
@@ -100,6 +100,17 @@ export class DataTableService {
     this.categories.push(new Category(this.catName));
     localStorage.setItem("categories", JSON.stringify(this.categories));
     this.catName = "";
+  }
+
+  public removeCategory(category: Category) {
+    this.categories = this.categories.filter(e => e != category);
+    localStorage.setItem("categories", JSON.stringify(this.categories));
+    this.todos.forEach(todo => {
+      if (todo.category == category) {
+        todo.category = this.categories[0];
+      }
+    });
+    this.save();
   }
 
   public findNextId(): number {

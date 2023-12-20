@@ -5,7 +5,7 @@ export class Todo {
   public status = Status.NEW;
   public priority = Priority.UNASSIGNED;
 
-  constructor(public id: number, public name: string, public until: Date, public category: Category) {
+  constructor(public id: number, public name: string, public until: Date, public category?: Category) {
   }
 
   nextStatus() {

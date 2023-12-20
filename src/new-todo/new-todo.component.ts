@@ -21,7 +21,7 @@ import {FormsModule} from "@angular/forms";
 })
 export class NewTodoComponent {
   name = "";
-  until: Date = new Date();
+  until: Date = new Date(Date.now());
   category = this.dataTableService.categories[0];
   priority = Priority.UNASSIGNED;
 
