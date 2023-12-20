@@ -1,10 +1,10 @@
 <div>
-  <div style="user-select: none; height: 30px" (click)="dataTableService.saveSetting(dataTableService.showExtraButtons)">
+  <div style="user-select: none; height: 30px" (click)="dataTableService.saveSetting(dataTableService.showExtraButtons)" class="hoverGlow">
     <input id="{{dataTableService.showExtraButtons.description}}" type="checkbox" [(ngModel)]="dataTableService.showExtraButtons.enabled">
-    <label style="margin-left: 7px; font: 15px Arial; color: #888888" for="{{dataTableService.showExtraButtons.description}}">{{dataTableService.showExtraButtons.description}}</label>
+    <label style="margin-left: 7px; font: 15px Arial" for="{{dataTableService.showExtraButtons.description}}">{{dataTableService.showExtraButtons.description}}</label>
   </div>
-  <div style="user-select: none; height: 30px" (click)="dataTableService.saveSetting(dataTableService.sortList)">
-    <input id="{{dataTableService.sortList.description}}" type="checkbox" [(ngModel)]="dataTableService.sortList.enabled">
-    <label style="margin-left: 7px; font: 15px Arial; color: #888888" for="{{dataTableService.sortList.description}}">{{dataTableService.sortList.description}}</label>
+  <div style="user-select: none; height: 30px" (click)="dataTableService.saveSetting(dataTableService.sortList)" class="hoverGlow">
+    <input style="padding-top: 3px" id="{{dataTableService.sortList.description}}" type="checkbox" [(ngModel)]="dataTableService.sortList.enabled">
+    <label style="margin-left: 7px; font: 15px Arial" for="{{dataTableService.sortList.description}}">{{dataTableService.sortList.description}}</label>
   </div>
 </div>

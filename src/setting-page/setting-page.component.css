@@ -1,0 +1,9 @@
+.hoverGlow {
+  color: #888888;
+  transition: 0.5s;
+}
+
+.hoverGlow:hover {
+  color: #bbbbbb;
+  transition: 0.5s;
+}

@@ -1,11 +1,6 @@
 .mat-icon {
-  color: #888888;
   transition: 0.5s;
   margin: 5px;
-}
-.mat-icon:nth-child(odd) {
-  transition: 0.5s;
-  color: #bbbbbb;
 }
 
 .thead {
@@ -39,4 +34,18 @@
   transition: 0.5s;
   color: #bbbbbb;
   border: #444444 1px solid;
+}
+.hoverGlow {
+  color: #888888;
+  transition: 0.5s;
+}
+
+.hoverGlow:hover {
+  color: #dddddd;
+  transition: 0.5s;
+}
+
+.hoverGlow:focus {
+  color: #dddddd;
+  transition: 0.5s;
 }

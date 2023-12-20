@@ -5,13 +5,15 @@ import {ComponentService} from "../services/ComponentService";
 import {MatIconModule} from "@angular/material/icon";
 import {FormsModule} from "@angular/forms";
 import {dateTimestampProvider} from "rxjs/internal/scheduler/dateTimestampProvider";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
   imports: [
     MatIconModule,
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
