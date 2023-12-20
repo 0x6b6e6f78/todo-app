@@ -13,8 +13,13 @@
   <br>
   <div>Kategorie:</div>
   <select name="categories" style="width: 500px; background-color: transparent; color: #888888" [(ngModel)]="category">
-    <option *ngFor="let categories of dataTableService.categories" [ngValue]="categories">
-      {{categories.name}}
+    <option style="color: #888888; background-color: #222222" *ngFor="let categories of dataTableService.categories" [ngValue]="categories">
+      <ng-container *ngIf="categories.name != ''; else e">
+        {{categories.name}}
+      </ng-container>
+      <ng-template #e>
+        -
+      </ng-template>
     </option>
   </select>
   <br>

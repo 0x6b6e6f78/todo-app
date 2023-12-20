@@ -9,7 +9,7 @@
       </ng-template>
     </div>
     <div style="margin-top: 8px" *ngFor="let category of dataTableService.categories">
-      <div *ngIf="category.name != ''" name="cate" (click)="dataTableService.selected = category">
+      <div *ngIf="category != dataTableService.categories[0]" name="cate" (click)="dataTableService.selected = category">
         <button style="color: #888888; background-color: transparent; border: none" (click)="dataTableService.removeCategory(category)">-</button>
         <b *ngIf="dataTableService.selected == category; else elseBlock">
           {{category.name + ' '}}

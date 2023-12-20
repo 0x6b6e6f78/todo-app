@@ -1,3 +1,12 @@
-<div *ngIf="dataTableService.messageBoxMessage !== undefined" style="background-color: #ff353555; color: white; user-select: none; border: #ff3535 3px solid; text-align: center; border-radius: 15px;">
-  {{dataTableService.messageBoxMessage!}}
+<div *ngIf="dataTableService.messageBoxMessage !== undefined" style="color: white; user-select: none; text-align: center">
+  <ng-container *ngIf="dataTableService.messageBoxMessage.red; else e">
+    <div style="padding-top: 12px; background-color: #ff353555; border: #ff3535 3px solid; border-radius: 15px; font-size: 20px; height: 50px">
+      {{dataTableService.messageBoxMessage!.message}}
+    </div>
+  </ng-container>
+  <ng-template #e>
+    <div style="padding-top: 12px; background-color: #35ff3555; border: #35ff35 3px solid; border-radius: 15px; font-size: 20px; height: 50px">
+      {{dataTableService.messageBoxMessage!.message}}
+    </div>
+  </ng-template>
 </div>

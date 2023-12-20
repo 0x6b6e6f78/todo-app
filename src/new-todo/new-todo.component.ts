@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {DatePipe, NgForOf} from "@angular/common";
+import {DatePipe, formatDate, NgForOf, NgIf} from "@angular/common";
 import {DataTableService} from "../services/DataTableService";
 import {Category, Priority, Todo} from "../objects/todo";
 import {MatIconModule} from "@angular/material/icon";
@@ -14,14 +14,15 @@ import {FormsModule} from "@angular/forms";
     MatIconModule,
     MatTooltipModule,
     FormsModule,
-    DatePipe
+    DatePipe,
+    NgIf
   ],
   templateUrl: './new-todo.component.html',
   styleUrl: './new-todo.component.css'
 })
 export class NewTodoComponent {
   name = "";
-  until: Date = new Date(Date.now());
+  until: Date | undefined;
   category = this.dataTableService.categories[0];
   priority = Priority.UNASSIGNED;
 
@@ -30,10 +31,14 @@ export class NewTodoComponent {
 
   public create() {
     if (this.name.length == 0) {
-      this.dataTableService.messageBoxMessage = "Der Name darf nicht leer sein";
+      this.dataTableService.messageBoxMessage = {message: "Der Name darf nicht leer sein", red: true};
       return;
     }
-    let todo = new Todo(this.dataTableService.findNextId(), this.name, this.until, this.category!);
+    if (this.until === undefined) {
+      this.dataTableService.messageBoxMessage = {message: "Bitte stell ein Datum ein", red: true};
+      return;
+    }
+    let todo = new Todo(this.dataTableService.findNextId(), this.name, this.until!, this.category!);
     todo.priority = this.priority;
     this.dataTableService.add(todo);
   }

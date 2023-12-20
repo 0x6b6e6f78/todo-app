@@ -4,7 +4,7 @@ import {Injectable} from "@angular/core";
 @Injectable({ providedIn: "root" })
 export class DataTableService {
   public category_defaults: Category[] = [new Category('Hausarbeit'), new Category('Verein')];
-  public categories: Category[] = [new Category('')];
+  public categories: Category[] = [new Category('Keine')];
   public todo_defaults: Todo[] = [new Todo(1, 'Garten essen', new Date('01.01.2020'), this.categories[0]),
     new Todo(2, 'Rasen mehlen', new Date('01.01.2020'), this.categories[0]),
     new Todo(3, 'Rasen mähen', new Date('01.01.2020'), this.categories[1])];
@@ -16,7 +16,7 @@ export class DataTableService {
   public catName = "";
   public selected: Category | undefined;
   public searchText: string = "";
-  public _messageBoxMessage: string | undefined;
+  public _messageBoxMessage: {message: string, red: boolean} | undefined;
 
   constructor() {
     //localStorage.setItem("todos", JSON.stringify(this.todo_defaults));
@@ -71,16 +71,16 @@ export class DataTableService {
     }
   }
 
-  public set messageBoxMessage(message: string) {
+  public set messageBoxMessage(message: {message: string, red: boolean}) {
     this._messageBoxMessage = message;
-    new Promise(resolve => setTimeout(resolve, 5000)).then(d => {
+    new Promise(resolve => setTimeout(resolve, 3000)).then(d => {
       if (this._messageBoxMessage == message) {
         this._messageBoxMessage = undefined;
       }
     });
   }
 
-  public get messageBoxMessage(): string | undefined {
+  public get messageBoxMessage(): { message: string, red: boolean } | undefined {
     return this._messageBoxMessage;
   }
 
@@ -90,20 +90,22 @@ export class DataTableService {
 
   public addCategory() {
     if (this.catName.length == 0) {
-      this.messageBoxMessage = "Der Name der Kategorie darf nicht leer sein";
+      this.messageBoxMessage = {message: "Der Name der Kategorie darf nicht leer sein", red: true};
       return;
     }
     if (this.categories.find(e => e.name == this.catName) !== undefined) {
-      this.messageBoxMessage = "Diese Kategorie existiert bereits";
+      this.messageBoxMessage = {message: "Diese Kategorie existiert bereits", red: true};
       return;
     }
     this.categories.push(new Category(this.catName));
+    this.messageBoxMessage = {message: "Kategorie hinzugefügt", red: false};
     localStorage.setItem("categories", JSON.stringify(this.categories));
     this.catName = "";
   }
 
   public removeCategory(category: Category) {
     this.categories = this.categories.filter(e => e != category);
+    this.messageBoxMessage = {message: "Kategorie entfernt", red: false};
     localStorage.setItem("categories", JSON.stringify(this.categories));
     this.todos.forEach(todo => {
       if (todo.category == category) {
@@ -125,13 +127,13 @@ export class DataTableService {
   public delete(todo: Todo) {
     this.todos = this.todos.filter(e => e != todo);
     this.save();
-    this.messageBoxMessage = "Todo gelöscht";
+    this.messageBoxMessage = {message: "Todo gelöscht", red: false};
   }
 
   public add(todo: Todo) {
     this.todos.push(todo);
     this.save();
-    this.messageBoxMessage = "Todo hinzugefügt";
+    this.messageBoxMessage = {message: "Todo hinzugefügt", red: false};
   }
 
   public save() {
@@ -141,7 +143,7 @@ export class DataTableService {
   public clone(todo: Todo) {
     let newTodo: Todo = new Todo(this.findNextId(), todo.name, todo.until, todo.category);
     this.add(newTodo);
-    this.messageBoxMessage = "Todo geklont"
+    this.messageBoxMessage = {message: "Todo geklont", red: false};
   }
 
   public todoList() {
